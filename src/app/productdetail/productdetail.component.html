@@ -1,0 +1,38 @@
+<form #productForm="ngForm">
+    <p>
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" [(ngModel)]="product.name" name="name" #name="ngModel"/>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="fill">
+            <mat-label>Stocl</mat-label>
+            <input matInput type="text" [(ngModel)]="product.stock" name="stock" #stock="ngModel"/>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="fill">
+            <mat-label>Precio</mat-label>
+            <input matInput type="text" [(ngModel)]="product.price" name="price" #price="ngModel"/>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="fill">
+            <mat-label>Activo</mat-label>
+            <input matInput type="text" [(ngModel)]="product.active" name="active" #active="ngModel"/>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="fill">
+            <mat-label>Fecha</mat-label>
+            <input matInput [(ngModel)]="product.date_added" name="date_added" #date_added="ngModel"/>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="date_added"></mat-datepicker-toggle>
+            <mat-datepicker #date_added></mat-datepicker>
+        </mat-form-field>
+    </p>
+    <p>
+        <button role="button" (click)='update()'>Editar</button>
+    </p>
+</form>
