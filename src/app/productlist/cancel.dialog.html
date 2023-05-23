@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Borrar el producto</h1>
+<div mat-dialog-content>
+  Deseas borrar el producto {{data.name}}
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="close(true)">Sí</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="close()">No</button>
+</div>

@@ -1,5 +1,6 @@
-:host {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.mat-input-element {
+  width: 70%;
+}
+.mat-form-field-infix {
+  min-height: 68px;
+}

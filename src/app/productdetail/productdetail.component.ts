@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../model/product';
 import { ProductService } from '../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { formatDate, registerLocaleData } from '@angular/common';
+import localerES from '@angular/common/locales/es'
 
 @Component({
   selector: 'app-productdetail',
@@ -11,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductdetailComponent implements OnInit {
   public product:Product = new Product;
   public errores: string[];
+  public errorMessage;
 
   constructor(private productService: ProductService, private router: Router, private activatedRoute:ActivatedRoute){}
 
@@ -47,4 +50,10 @@ export class ProductdetailComponent implements OnInit {
     );
   }
 
+  updateDateTime(selectedDate): void {
+    let unformated = new Date(Date.parse(selectedDate));
+    registerLocaleData(localerES,'es');
+    let formated = formatDate(unformated,'dd/MM/yyyy','es');
+    this.product.date_added = formated;
+  }
 }

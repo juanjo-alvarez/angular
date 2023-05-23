@@ -10,7 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatMenuModule, MatNativeDateModule } from '@angular/material';
-import { ProductlistComponent } from './productlist/productlist.component';
+import { ProductlistComponent, DeleteDialog, AddDialog, ShoppingCartDialog } from './productlist/productlist.component';
 import { MatTableModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductdetailComponent } from './productdetail/productdetail.component';
@@ -22,7 +22,10 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     ProductlistComponent,
-    ProductdetailComponent
+    ProductdetailComponent,
+    DeleteDialog,
+    AddDialog,
+    ShoppingCartDialog
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import { FormsModule } from '@angular/forms';
     MatNativeDateModule
   ],
   providers: [],
+  entryComponents: [DeleteDialog,AddDialog,ShoppingCartDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
