@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Observable, throwError } from "rxjs";
 import { map , catchError, tap} from 'rxjs/operators'
 import { Product } from "../model/product";
+import { OResponse } from "../model/response";
 import { formatDate, registerLocaleData } from "@angular/common";
 import localerES from '@angular/common/locales/es'
 
@@ -14,10 +15,11 @@ import localerES from '@angular/common/locales/es'
 export class ProductService {
     
     private urlEnpoint:string = 'http://localhost:30030/products'
-    private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
+    //private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
+    private httpHeaders = new HttpHeaders({'Content-Type': 'application/json','Authorization':"Basic " + btoa("demo:demouser")})
     constructor(private http: HttpClient) { }
 
-    getProducts(): Observable<Product[]> {
+    getProductsOld(): Observable<Product[]> {
       return this.http.post(this.urlEnpoint.concat("/getAll"),{headers: this.httpHeaders}).pipe(
         map( response => {
           let products = response as Product[];
@@ -26,6 +28,39 @@ export class ProductService {
             product.date_added = formatDate(product.date_added,'dd/MM/yyyy','es');
             return product;
           });
+        })
+      );
+    }
+
+
+    login(user: string, password: string): Observable<string>{
+      let url = "http://localhost:33333/users/login";
+      let headers = new HttpHeaders({'Content-Type': 'application/json','Authorization':"Basic " + btoa(user+":"+password)})
+      return this.http.post(url,{headers: headers}).pipe(
+        map(resp=>{
+          sessionStorage.setItem('user', user);
+          sessionStorage.setItem('password', password);
+          return "ok";
+        }),
+        catchError(e => {
+          if(e.error.status == "401"){
+            alert("constraseña incorrecta");
+            return "ko";
+          }else{
+            console.error(e.error.status+":"+e.error.error);
+            return throwError(() => e);
+          }
+        })
+      );
+    }
+
+    getProducts(): Observable<Product[]> {
+      let getAllUrl = "http://localhost:33333/products/product?columns=id,name,stock,price,active,date_added";
+      return this.http.get(getAllUrl,{headers: this.httpHeaders}).pipe(
+        map( resp => {
+          let resObject = resp as OResponse;
+          let products = resObject.data as Product[];
+          return products;
         })
       );
     }
